@@ -1,0 +1,514 @@
+/* Base Styles */
+:root {
+    /* Amber scale */
+    --primary-50: #FFFBEB;
+    --primary-100: #FEF3C7;
+    --primary-200: #FDE68A;
+    --primary-300: #FCD34D;
+    --primary-400: #FBBF24;
+    --primary-500: #F59E0B;
+    --primary-600: #D97706;
+    --primary-700: #B45309;
+    --primary-800: #92400E;
+
+    --primary-color: var(--primary-600);
+    --primary-hover: var(--primary-700);
+    --text-color: #1F2937;
+    --text-light: #6B7280;
+    --background: #FFFFFF;
+    /* Neutral grayscale */
+    --neutral-50: #F9FAFB;
+    --neutral-100: #F3F4F6;
+    --neutral-200: #E5E7EB;
+    /* Focus ring color for current theme */
+    --focus-ring: rgba(217, 119, 6, 0.12);
+    --neutral-300: #D1D5DB;
+    --neutral-700: #374151;
+    /* Hero soft violet gradient */
+    --hero-gradient-start: var(--primary-50);
+    --hero-gradient-end: var(--primary-100);
+    --background-light: #F9FAFB;
+    --border-color: #E5E7EB;
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    --rounded: 0.375rem;
+    --rounded-lg: 0.5rem;
+    --transition: all 0.2s ease-in-out;
+}
+
+/* Theme: Rosa overrides (apply by adding class `theme-rose` to <html>) */
+.theme-rose {
+    --primary-50: #FFF1F2;
+    --primary-100: #FFE4E6;
+    --primary-200: #FECDD3;
+    --primary-300: #FDA4AF;
+    --primary-400: #FB7185;
+    --primary-500: #F43F5E;
+    --primary-600: #E11D48;
+    --primary-700: #BE123C;
+    --primary-800: #9F1239;
+    /* Focus ring for Rosa */
+    --focus-ring: rgba(225, 29, 72, 0.12);
+}
+
+/* Theme: Dark mode (keeps current primary palette) */
+.theme-dark {
+    --background: #0B1220;
+    --background-light: #0F172A;
+    --text-color: #E5E7EB;
+    --text-light: #9CA3AF;
+    --border-color: rgba(255, 255, 255, 0.12);
+    --hero-gradient-start: #111827;
+    --hero-gradient-end: #0B1220;
+}
+
+/* Component adjustments in dark mode */
+.theme-dark body {
+    background-color: var(--background);
+}
+.theme-dark .header {
+    background-color: rgba(17, 24, 39, 0.85);
+}
+.theme-dark .feature-card {
+    background-color: #111827;
+    border: 1px solid var(--border-color);
+    box-shadow: none;
+}
+.theme-dark .nav-links a { color: var(--text-color); }
+.theme-dark .footer { background-color: #0B0F19; }
+.theme-dark .copyright { border-top: 1px solid rgba(255, 255, 255, 0.08); }
+.theme-dark .email-input {
+    background-color: #0B1220;
+    color: var(--text-color);
+    border-color: var(--border-color);
+}
+.theme-dark .email-input::placeholder { color: rgba(229, 231, 235, 0.6); }
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    color: var(--text-color);
+    line-height: 1.5;
+    background-color: var(--background);
+    transition: background-color 200ms ease, color 200ms ease;
+}
+
+/* Smooth theme transitions for common surfaces */
+.header,
+.feature-card,
+.footer,
+.email-input,
+.nav-links a,
+.logo,
+.cta,
+.cta-button {
+    transition: background-color 200ms ease, color 200ms ease, border-color 200ms ease;
+}
+
+.container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+}
+
+/* Typography */
+h1, h2, h3, h4, h5, h6 {
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 1rem;
+}
+
+h1 {
+    font-size: 3rem;
+    line-height: 1.1;
+    margin-bottom: 1.5rem;
+}
+
+h2 {
+    font-size: 2.25rem;
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+h3 {
+    font-size: 1.25rem;
+    margin-bottom: 0.75rem;
+}
+p {
+    color: var(--text-light);
+    margin-bottom: 1.5rem;
+}
+
+.intro-highlight {
+    background-color: var(--primary-50);
+    border: 1px solid var(--primary-200);
+    color: var(--text-color);
+    padding: 1rem 1.25rem;
+    border-radius: var(--rounded-lg);
+    box-shadow: var(--shadow-sm);
+}
+
+.theme-dark .intro-highlight {
+    background-color: #111827;
+    border-color: var(--border-color);
+    box-shadow: none;
+}
+
+/* Header & Navigation */
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(8px);
+    z-index: 100;
+    box-shadow: var(--shadow-sm);
+}
+
+/* Stronger shadow when scrolling */
+.header.scrolled {
+    box-shadow: var(--shadow-md);
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 5rem;
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--primary-color);
+}
+
+.nav-links {
+    display: flex;
+    gap: 2rem;
+    align-items: center;
+}
+
+.nav-links a {
+    color: var(--text-color);
+    text-decoration: none;
+    font-weight: 500;
+    transition: var(--transition);
+}
+
+.nav-links a:hover {
+    color: var(--primary-color);
+}
+
+/* Theme toggle button in navbar */
+.theme-toggle {
+    background: transparent;
+    border: 1px solid var(--border-color);
+    color: var(--text-color);
+    padding: 0.5rem 0.75rem;
+    border-radius: var(--rounded);
+    font-weight: 500;
+    cursor: pointer;
+    transition: var(--transition);
+}
+.theme-toggle:hover {
+    border-color: var(--primary-color);
+    color: var(--primary-color);
+}
+
+/* Underline hover effect for nav links */
+.nav-link {
+    position: relative;
+}
+.nav-link::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -6px;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, var(--primary-400), var(--primary-600));
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 200ms ease;
+}
+.nav-link:hover::after,
+.nav-link:focus-visible::after {
+    transform: scaleX(1);
+}
+
+/* Buttons */
+.cta-button {
+    display: inline-block;
+    background-color: var(--primary-600);
+    background-image: linear-gradient(135deg, var(--primary-500), var(--primary-700));
+    color: white;
+    font-weight: 500;
+    padding: 0.75rem 1.5rem;
+    border-radius: var(--rounded);
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    transition: var(--transition);
+    white-space: nowrap;
+    position: relative;
+    overflow: hidden; /* for ripple */
+}
+
+.cta-button:hover {
+    background-color: var(--primary-700);
+    background-image: linear-gradient(135deg, var(--primary-600), var(--primary-800));
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-md);
+}
+
+/* Form Elements */
+.email-input {
+    padding: 0.75rem 1rem;
+    border: 1px solid var(--border-color);
+    border-radius: var(--rounded);
+    font-size: 1rem;
+    max-width: 350px;
+    margin-right: 0.75rem;
+    transition: var(--transition);
+}
+
+ .email-input:focus {
+     outline: none;
+     border-color: var(--primary-color);
+     box-shadow: 0 0 0 3px var(--focus-ring);
+ }
+
+ .cta-form {
+     display: flex;
+     flex-wrap: wrap;
+     gap: 1rem;
+
+     justify-content: center;
+     margin-top: 2rem;
+ }
+
+/* Sections */
+.hero {
+    padding: 10rem 0 6rem;
+    text-align: center;
+    background: linear-gradient(135deg, var(--hero-gradient-start), var(--hero-gradient-end));
+}
+
+.section {
+    padding: 6rem 0;
+}
+
+.about {
+    background-color: var(--background);
+}
+
+.features {
+    background-color: var(--background-light);
+}
+
+/* Features Grid */
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+    margin-top: 3rem;
+}
+
+.feature-card {
+    background: white;
+    padding: 2rem;
+    border-radius: var(--rounded-lg);
+    box-shadow: var(--shadow-sm);
+    transition: var(--transition);
+    text-align: center;
+}
+
+.feature-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-md);
+}
+
+.feature-icon {
+    font-size: 2.5rem;
+    margin-bottom: 1.5rem;
+}
+
+/* CTA Section */
+.cta {
+    text-align: center;
+    background: linear-gradient(135deg, var(--primary-600), var(--primary-800));
+    color: white;
+}
+
+.cta h2,
+.cta p {
+    color: white;
+}
+
+.cta .email-input {
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    background-color: rgba(255, 255, 255, 0.1);
+    color: white;
+}
+
+.cta .email-input::placeholder {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.cta .cta-button {
+    background-color: white;
+    color: var(--primary-color);
+}
+
+.cta .cta-button:hover {
+    background-color: rgba(255, 255, 255, 0.9);
+}
+
+/* Footer */
+.footer {
+    background-color: #111827;
+    color: white;
+    padding: 4rem 0 2rem;
+}
+
+.footer-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 2rem;
+    margin-bottom: 3rem;
+}
+
+.footer-logo {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: white;
+}
+
+.footer-links {
+    display: flex;
+    gap: 2rem;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.footer-links a {
+    color: #9CA3AF;
+    text-decoration: none;
+    transition: var(--transition);
+}
+
+.footer-links a:hover {
+    color: white;
+}
+
+.social-links {
+    display: flex;
+    gap: 1.5rem;
+}
+
+.social-links a {
+    color: #9CA3AF;
+    font-size: 1.25rem;
+    transition: var(--transition);
+}
+
+.social-links a:hover {
+    color: white;
+    transform: translateY(-2px);
+}
+
+.copyright {
+    text-align: center;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    color: #9CA3AF;
+    font-size: 0.875rem;
+}
+
+/* Reveal on scroll */
+.reveal {
+    opacity: 0;
+    transform: translateY(16px);
+    filter: blur(4px);
+    transition: opacity 500ms ease, transform 500ms ease, filter 500ms ease;
+    will-change: opacity, transform, filter;
+}
+.reveal.in-view {
+    opacity: 1;
+    transform: none;
+    filter: none;
+}
+
+/* Button ripple effect */
+.ripple {
+    position: absolute;
+    border-radius: 50%;
+    transform: scale(0);
+    background: rgba(255, 255, 255, 0.5);
+    animation: ripple 600ms ease-out;
+    pointer-events: none;
+}
+@keyframes ripple {
+    to {
+        transform: scale(4);
+        opacity: 0;
+    }
+}
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation: none !important;
+        transition: none !important;
+        scroll-behavior: auto !important;
+    }
+    .reveal {
+        opacity: 1 !important;
+        transform: none !important;
+        filter: none !important;
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    h1 {
+        font-size: 2.5rem;
+    }
+    
+    h2 {
+        font-size: 2rem;
+    }
+    
+    .nav-links {
+        display: none;
+    }
+    
+    .hero {
+        padding: 8rem 0 4rem;
+    }
+    
+    .section {
+        padding: 4rem 0;
+    }
+    
+    .cta-form {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .email-input {
+        margin-right: 0;
+        margin-bottom: 1rem;
+        max-width: 100%;
+    }
+}

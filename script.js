@@ -8,23 +8,34 @@ document.addEventListener('DOMContentLoaded', function() {
             
             const targetElement = document.querySelector(targetId);
             if (targetElement) {
+                const headerEl = document.querySelector('.header');
+                const headerHeight = headerEl && headerEl.classList.contains('header-visible') ? headerEl.offsetHeight : 0;
+                const targetTop = targetElement.getBoundingClientRect().top + window.scrollY;
                 window.scrollTo({
-                    top: targetElement.offsetTop - 80, // Account for fixed header
+                    top: targetTop - headerHeight,
                     behavior: 'smooth'
                 });
             }
         });
     });
 
-    // Sticky header shadow on scroll
+    // Sticky header: show after hero and add shadow on scroll
     const header = document.querySelector('.header');
-    const updateHeaderShadow = () => {
-        if (!header) return;
+    const hero = document.querySelector('.hero');
+    const updateHeaderState = () => {
+        if (!header || !hero) return;
+
+        const showThreshold = Math.max(hero.offsetHeight - header.offsetHeight, 0);
+        const shouldShow = window.scrollY >= showThreshold;
+        header.classList.toggle('header-visible', shouldShow);
+        header.classList.toggle('header-hidden', !shouldShow);
+
         if (window.scrollY > 2) header.classList.add('scrolled');
         else header.classList.remove('scrolled');
     };
-    updateHeaderShadow();
-    window.addEventListener('scroll', updateHeaderShadow, { passive: true });
+    updateHeaderState();
+    window.addEventListener('scroll', updateHeaderState, { passive: true });
+    window.addEventListener('resize', updateHeaderState, { passive: true });
 
     // Theme toggle (Amber <-> Rose)
     const root = document.documentElement;
